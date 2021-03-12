@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <div class="text-center" id="loader">
+            <h2>Loading...</h2>
+        </div>
+
+        <table id="coins" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr role="row">
+                    <th class="sorting" tabindex="0" aria-controls="coins-info-table">Coin Name</th>
+                    <th class="sorting mobile-hide" tabindex="0" aria-controls="coins-info-table">Market Cap</th>
+                    <th class="sorting" tabindex="0" aria-controls="coins-info-table">Price</th>
+                    <th class="sorting mobile-hide" tabindex="0" aria-controls="coins-info-table">Volume (24hr)</th>
+                    <th class="sorting mobile-hide" tabindex="0" aria-controls="coins-info-table">Supply</th>
+                    <th class="sorting mobile-hide" tabindex="0" aria-controls="coins-info-table">Change</th>
+                    <th class="sorting mobile-hide" tabindex="0" aria-controls="coins-info-table">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.CryptoList.Data)
+                {
+
+                    <tr id="COIN_@item.id.ToLower()">
+                        <td><span class="sprite sprite-@item.name.ToLower() small_coin_logo"></span> <strong><a href="/home/details/@item.symbol">@item.name</a></strong></td>
+                        <td class="market_capital mobile-hide">@item.marketCapUsdStr</td>
+                        <td class="increment price" data-usd="@item.priceUsd">@item.priceUsdStr</td>
+                        <td class="volume mobile-hide">@item.volumeUsd24HrStr</td>
+                        <td class="supply mobile-hide">@item.supplyStr</td>
+                        <td class="increment change mobile-hide">@item.changePercent24HrStr%</td>
+                        <td class="actions mobile-hide"><a href="/home/details/@item.symbol" class="btn btn-xs btn-default">Coin Info</a></td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
