@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Selloze.ConsoleBotEngine\Selloze.ConsoleBotEngine.csproj" />
+    <ProjectReference Include="..\Selloze.Models\Selloze.Models.csproj" />
+  </ItemGroup>
+
+</Project>

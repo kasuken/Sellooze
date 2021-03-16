@@ -11,11 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selloze.Models", "Selloze.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selloze.PublicWeb", "Selloze.PublicWeb\Selloze.PublicWeb.csproj", "{548419D1-8938-431B-860C-ADE726A8241D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.Web.Server", "Selloze.Web\Server\Selloze.Web.Server.csproj", "{FDE088BC-6D24-48B0-AA71-46DFC12415B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selloze.Web.Server", "Selloze.Web\Server\Selloze.Web.Server.csproj", "{FDE088BC-6D24-48B0-AA71-46DFC12415B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.Web.Client", "Selloze.Web\Client\Selloze.Web.Client.csproj", "{C81EDD32-3DBE-4A55-B392-E1EA1E94BAFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selloze.Web.Client", "Selloze.Web\Client\Selloze.Web.Client.csproj", "{C81EDD32-3DBE-4A55-B392-E1EA1E94BAFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.Web.Shared", "Selloze.Web\Shared\Selloze.Web.Shared.csproj", "{F451209F-DB20-47E8-AAF8-D6663E5C93DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selloze.Web.Shared", "Selloze.Web\Shared\Selloze.Web.Shared.csproj", "{F451209F-DB20-47E8-AAF8-D6663E5C93DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sellooze.WinApp", "Sellooze.WinApp\Sellooze.WinApp.csproj", "{70E37466-2E55-4A49-BF09-6C2D1128CCC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{F451209F-DB20-47E8-AAF8-D6663E5C93DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F451209F-DB20-47E8-AAF8-D6663E5C93DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F451209F-DB20-47E8-AAF8-D6663E5C93DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70E37466-2E55-4A49-BF09-6C2D1128CCC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70E37466-2E55-4A49-BF09-6C2D1128CCC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70E37466-2E55-4A49-BF09-6C2D1128CCC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70E37466-2E55-4A49-BF09-6C2D1128CCC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
