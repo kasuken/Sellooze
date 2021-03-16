@@ -1,12 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.ConsoleBot", "Selloze.ConsoleBot\Selloze.ConsoleBot.csproj", "{75CFBC26-08F4-47BC-8B7D-14965CE663C7}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selloze.ConsoleBot", "Selloze.ConsoleBot\Selloze.ConsoleBot.csproj", "{75CFBC26-08F4-47BC-8B7D-14965CE663C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.ConsoleBotEngine", "Selloze.ConsoleBotEngine\Selloze.ConsoleBotEngine.csproj", "{565B83B4-67D8-4A28-9898-CB85033BC928}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selloze.ConsoleBotEngine", "Selloze.ConsoleBotEngine\Selloze.ConsoleBotEngine.csproj", "{565B83B4-67D8-4A28-9898-CB85033BC928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.Models", "Selloze.Models\Selloze.Models.csproj", "{B937EB3F-193A-401B-97EC-4F4134B2D86B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selloze.Models", "Selloze.Models\Selloze.Models.csproj", "{B937EB3F-193A-401B-97EC-4F4134B2D86B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.PublicWeb", "Selloze.PublicWeb\Selloze.PublicWeb.csproj", "{548419D1-8938-431B-860C-ADE726A8241D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selloze.PublicWeb", "Selloze.PublicWeb\Selloze.PublicWeb.csproj", "{548419D1-8938-431B-860C-ADE726A8241D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.Web.Server", "Selloze.Web\Server\Selloze.Web.Server.csproj", "{FDE088BC-6D24-48B0-AA71-46DFC12415B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.Web.Client", "Selloze.Web\Client\Selloze.Web.Client.csproj", "{C81EDD32-3DBE-4A55-B392-E1EA1E94BAFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selloze.Web.Shared", "Selloze.Web\Shared\Selloze.Web.Shared.csproj", "{F451209F-DB20-47E8-AAF8-D6663E5C93DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +39,23 @@ Global
 		{548419D1-8938-431B-860C-ADE726A8241D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{548419D1-8938-431B-860C-ADE726A8241D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{548419D1-8938-431B-860C-ADE726A8241D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDE088BC-6D24-48B0-AA71-46DFC12415B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDE088BC-6D24-48B0-AA71-46DFC12415B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE088BC-6D24-48B0-AA71-46DFC12415B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDE088BC-6D24-48B0-AA71-46DFC12415B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C81EDD32-3DBE-4A55-B392-E1EA1E94BAFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81EDD32-3DBE-4A55-B392-E1EA1E94BAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81EDD32-3DBE-4A55-B392-E1EA1E94BAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81EDD32-3DBE-4A55-B392-E1EA1E94BAFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F451209F-DB20-47E8-AAF8-D6663E5C93DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F451209F-DB20-47E8-AAF8-D6663E5C93DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F451209F-DB20-47E8-AAF8-D6663E5C93DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F451209F-DB20-47E8-AAF8-D6663E5C93DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BF736B2-8271-4448-AC90-BE0668DE7C95}
 	EndGlobalSection
 EndGlobal
