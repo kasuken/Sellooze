@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace Selloze.Models
 {
+    public enum BotEngine
+    {
+        RSI = 0,
+        OTHER = 1
+    }
+
     public class SellozeEngineParameters
     {
         public List<string> Symbols { get; set; }
+
+        public BotEngine Engine { get; set; }
 
         public int RSI_PERIOD { get; set; }// = 14;
         public int RSI_OVERBOUGHT { get; set; }// = 70;

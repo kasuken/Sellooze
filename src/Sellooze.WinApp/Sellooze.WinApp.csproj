@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DeviceId" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Selloze.ConsoleBotEngine\Selloze.ConsoleBotEngine.csproj" />
     <ProjectReference Include="..\Selloze.Models\Selloze.Models.csproj" />
   </ItemGroup>

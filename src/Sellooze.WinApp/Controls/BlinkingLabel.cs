@@ -32,7 +32,7 @@ namespace Sellooze.WinApp.Controls
             this.BackColor = this.AccentColor;
 
             var timer = new Timer();
-            timer.Interval = 500;
+            timer.Interval = 1000;
 
             timer.Tick += (obj, arg) =>
             {

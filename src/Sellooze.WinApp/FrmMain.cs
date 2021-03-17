@@ -1,8 +1,12 @@
 ﻿namespace Sellooze.WinApp
 {
+    using DeviceId;
+    using DeviceId.Encoders;
+    using DeviceId.Formatters;
     using Selloze.Models;
     using System;
     using System.ComponentModel;
+    using System.Security.Cryptography;
     using System.Threading;
     using System.Windows.Forms;
 
@@ -40,15 +44,30 @@
         {
             var sellozeEngineParameters = new SellozeEngineParameters();
             sellozeEngineParameters.Symbols.Add("ethereum");
-            sellozeEngineParameters.RSI_PERIOD = 3;
-            sellozeEngineParameters.RSI_OVERBOUGHT = 70;
-            sellozeEngineParameters.RSI_OVERSOLD = 30;
 
+            sellozeEngineParameters.RSI_PERIOD = Convert.ToInt32(txtRsiPeriod.Text);
+            sellozeEngineParameters.RSI_OVERBOUGHT = Convert.ToInt32(txtRsiOverbought.Text);
+            sellozeEngineParameters.RSI_OVERSOLD = Convert.ToInt32(txtRsiOversold.Text);
+            sellozeEngineParameters.TRADE_QUANTITY = Convert.ToDouble(txtTradeQuantity.Text);
+
+            switch (cboEngine.SelectedItem.ToString())
+            {
+                case "RSI":
+                    sellozeEngineParameters.Engine = BotEngine.RSI;
+                    break;
+                default:
+                    sellozeEngineParameters.Engine = BotEngine.OTHER;
+                    break;
+            }
+            
             LogToListbox("Sellooze started...");
 
             backgroundWorker1.RunWorkerAsync(sellozeEngineParameters);
 
             btnStart.Enabled = false;
+            txtRsiPeriod.Enabled = false;
+            txtRsiOverbought.Enabled = false;
+            txtRsiOversold.Enabled = false;
         }
 
         private void BtnStop_Click(object sender, EventArgs e)
@@ -144,16 +163,15 @@
 
         #endregion
 
-        #region deprecated stuff
-
-        /* DFK - substituted with inline lambda
-        private void Engine_RaiseReceivedEvent(SellozeProgressDto progress)
+        private void FrmMain_Load(object sender, EventArgs e)
         {
-            int p = 0;
-            backgroundWorker1.ReportProgress(p, progress);
-        }
-        */
+            string deviceId = new DeviceIdBuilder()
+                .AddProcessorId()
+                .AddMotherboardSerialNumber()
+                .UseFormatter(new HashDeviceIdFormatter(() => SHA256.Create(), new Base64UrlByteArrayEncoder()))
+                .ToString();
 
-        #endregion
+            lblDeviceId.Text = deviceId;
+        }
     }
 }

@@ -13,16 +13,11 @@ namespace Selloze.ConsoleBotEngine
 {
     public class Engine
     {
-        private Coinbase.CoinbaseClient CoinbaseClient { get; set; }
-
         public SellozeEngineParameters SellozeEngineParameters { get; set; }
-
-        //public List<string> Symbols { get; set; }
 
         private List<double> Closes { get; set; }
 
         public delegate void MessageReceivedHandler(SellozeProgressDto progress);
-
         public event MessageReceivedHandler RaiseReceivedEvent;
 
         public Engine()
@@ -32,19 +27,6 @@ namespace Selloze.ConsoleBotEngine
 
         public async Task Run()
         {
-            // var spot = await CoinbaseClient.Data.GetSpotPriceAsync("ETH-USD");
-            // var payments = await CoinbaseClient.PaymentMethods.ListPaymentMethodsAsync();
-
-            //var accounts = await CoinbaseClient.Accounts.ListAccountsAsync();
-
-            //var create = new PlaceBuy
-            //{
-            //    Amount = 000.1m,
-            //    Currency = "BTC",
-            //    PaymentMethod = "B28EB04F-BD70-4308-90A1-96065283A001"
-            //};
-            //var r = await CoinbaseClient.Buys.PlaceBuyOrderAsync(accounts.Data[0].Id, create);
-
             var exitEvent = new ManualResetEvent(false);
             var url = new Uri("wss://stream.binance.com:9443/ws/ethusdt@kline_1m");
 
@@ -54,58 +36,47 @@ namespace Selloze.ConsoleBotEngine
                 client.ReconnectionHappened.Subscribe(info =>
                     Console.WriteLine($"Reconnection happened, type: {info.Type}"));
 
-                client.MessageReceived.Subscribe(msg => Receive(msg));
+                client.MessageReceived.Subscribe(msg => ReceiveAsync(msg));
                 await client.Start();
 
                 exitEvent.WaitOne();
             }
         }
 
-        private async Task Receive(ResponseMessage msg)
+        private async Task ReceiveAsync(ResponseMessage msg)
         {
             var trade = JsonConvert.DeserializeObject<BinanceModel>(msg.Text);
 
-            //candle is close?
-            if (trade.k.x)
+            if (SellozeEngineParameters.Engine == BotEngine.RSI)
             {
-                var closePrice = Convert.ToDouble(trade.k.c);
-                Closes.Add(closePrice);
-
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"Close!!! Closes:{Closes.Count}");
-                Console.ForegroundColor = ConsoleColor.White;
-
-                RaiseReceivedEvent(new SellozeProgressDto() { Operation = "closecount", CloseCount = Closes.Count });
-
-                if (Closes.Count > SellozeEngineParameters.RSI_PERIOD)
+                //candle is close?
+                if (trade.k.x)
                 {
-                    var rsi = CalculateRsi(Closes.TakeLast(SellozeEngineParameters.RSI_PERIOD));
+                    var closePrice = Convert.ToDouble(trade.k.c);
+                    Closes.Add(closePrice);
 
-                    RaiseReceivedEvent(new SellozeProgressDto() { Operation = "actualrsi", ActualRSI = rsi });
+                    RaiseReceivedEvent(new SellozeProgressDto() { Operation = "closecount", CloseCount = Closes.Count });
 
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"RSI: {rsi}");
-                    Console.ForegroundColor = ConsoleColor.White;
-
-                    if (rsi > SellozeEngineParameters.RSI_OVERBOUGHT)
+                    if (Closes.Count > SellozeEngineParameters.RSI_PERIOD)
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("SELL!!! SELL!!! SELL!!!");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
+                        var rsi = CalculateRsi(Closes.TakeLast(SellozeEngineParameters.RSI_PERIOD));
 
-                    if (rsi < SellozeEngineParameters.RSI_OVERSOLD)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("BUY!!! BUY!!! BUY!!!");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        RaiseReceivedEvent(new SellozeProgressDto() { Operation = "actualrsi", ActualRSI = rsi });
+
+                        if (rsi > SellozeEngineParameters.RSI_OVERBOUGHT)
+                        {
+                            RaiseReceivedEvent(new SellozeProgressDto() { Operation = "log", Log = $"SELL!!! SELL!!! SELL!!! - Rsi: {rsi}" });
+                        }
+
+                        if (rsi < SellozeEngineParameters.RSI_OVERSOLD)
+                        {
+                            RaiseReceivedEvent(new SellozeProgressDto() { Operation = "log", Log = $"BUY!!! BUY!!! BUY!!! - Rsi: {rsi}" });
+                        }
                     }
                 }
             }
 
             RaiseReceivedEvent(new SellozeProgressDto() { Operation = "log", Log = $"Received: {trade.e} - Close Price: {trade.k.c}" });
-
-            Console.WriteLine($"Received: {trade.e} - Close Price: {trade.k.c}");
         }
 
         private double CalculateRsi(IEnumerable<double> closePrices)
@@ -128,8 +99,7 @@ namespace Selloze.ConsoleBotEngine
             }
 
             if (sumGain == 0) return 0;
-            //if (Math.Abs(sumLoss) < Tolerance) return 100;
-            if (Math.Abs(sumLoss) < 10) return 100;
+            if (Math.Abs(sumLoss) < 1) return 100;
 
             var relativeStrength = sumGain / sumLoss;
 
