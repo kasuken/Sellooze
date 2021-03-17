@@ -10,8 +10,15 @@ namespace Selloze.ConsoleBot
         static void Main(string[] args)
         {
             var consoleBotEngine = new ConsoleBotEngine.Engine();
-            consoleBotEngine.Symbols.Add("ethereum");
-            consoleBotEngine.Symbols.Add("dogecoin");
+
+            var sellozeEngineParameters = new Models.SellozeEngineParameters();
+            sellozeEngineParameters.Symbols.Add("ethereum");
+            sellozeEngineParameters.RSI_PERIOD = 3;
+            sellozeEngineParameters.RSI_OVERBOUGHT = 70;
+            sellozeEngineParameters.RSI_OVERSOLD = 30;
+
+            consoleBotEngine.SellozeEngineParameters = sellozeEngineParameters;
+
             consoleBotEngine.Run();
             
             Console.ReadLine();
