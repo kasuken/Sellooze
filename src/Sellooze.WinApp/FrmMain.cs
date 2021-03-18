@@ -18,16 +18,27 @@
 
         private CancellationToken _cancellationToken;
 
+        private string _deviceId;
+
         #endregion
 
         #region constructors
 
         public FrmMain()
         {
-            InitializeComponent();
-            InitializeBackgroundWorker();
+            this.InitializeComponent();
+            this.InitializeBackgroundWorker();
 
-            btnStart.EnabledChanged += (obj, args) => btnStop.Enabled = !btnStart.Enabled;
+            this.btnStart.EnabledChanged += (obj, args) =>
+            {
+                this.btnStop.Enabled = !this.btnStart.Enabled;
+
+                this.txtRsiPeriod.Enabled = this.btnStart.Enabled;
+                this.txtRsiOverbought.Enabled = this.btnStart.Enabled;
+                this.txtRsiOversold.Enabled = this.btnStart.Enabled;
+            };
+
+            this.cboEngine.SelectedIndex = 0;
         }
 
         #endregion
@@ -39,15 +50,25 @@
         #endregion
 
         #region private methods [Form]
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            this._deviceId = new DeviceIdBuilder()
+                .AddProcessorId()
+                .AddMotherboardSerialNumber()
+                .UseFormatter(new HashDeviceIdFormatter(() => SHA256.Create(), new Base64UrlByteArrayEncoder()))
+                .ToString();
+
+            this.lblDeviceInfo.Text = $"Device ID: {this._deviceId}";
+        }
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
             var sellozeEngineParameters = new SellozeEngineParameters();
             sellozeEngineParameters.Symbols.Add("ethereum");
 
-            sellozeEngineParameters.RSI_PERIOD = Convert.ToInt32(txtRsiPeriod.Text);
-            sellozeEngineParameters.RSI_OVERBOUGHT = Convert.ToInt32(txtRsiOverbought.Text);
-            sellozeEngineParameters.RSI_OVERSOLD = Convert.ToInt32(txtRsiOversold.Text);
+            sellozeEngineParameters.RSI_PERIOD = Convert.ToInt32(txtRsiPeriod.Value);
+            sellozeEngineParameters.RSI_OVERBOUGHT = Convert.ToInt32(txtRsiOverbought.Value);
+            sellozeEngineParameters.RSI_OVERSOLD = Convert.ToInt32(txtRsiOversold.Value);
             sellozeEngineParameters.TRADE_QUANTITY = Convert.ToDouble(txtTradeQuantity.Text);
 
             switch (cboEngine.SelectedItem.ToString())
@@ -59,15 +80,12 @@
                     sellozeEngineParameters.Engine = BotEngine.OTHER;
                     break;
             }
-            
-            LogToListbox("Sellooze started...");
 
-            backgroundWorker1.RunWorkerAsync(sellozeEngineParameters);
+            this.LogToListbox("Sellooze started...");
 
-            btnStart.Enabled = false;
-            txtRsiPeriod.Enabled = false;
-            txtRsiOverbought.Enabled = false;
-            txtRsiOversold.Enabled = false;
+            this.backgroundWorker.RunWorkerAsync(sellozeEngineParameters);
+
+            this.btnStart.Enabled = false;            
         }
 
         private void BtnStop_Click(object sender, EventArgs e)
@@ -75,12 +93,21 @@
             this._cts.Cancel();
         }
 
+        private void StatusStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem == this.droTools)
+            {
+                Clipboard.SetText(this._deviceId);
+                System.Media.SystemSounds.Asterisk.Play(); // this could not works, due to Windows settings - use System.Media.SoundPlayer if required
+            }
+        }
+
         private void LogToListbox(string content)
         {
-            lstEvents.SuspendLayout();
+            this.lstEvents.SuspendLayout();
             int index = lstEvents.Items.Add(content);
-            lstEvents.SetSelected(index, true);
-            lstEvents.ResumeLayout();
+            this.lstEvents.SetSelected(index, true);
+            this.lstEvents.ResumeLayout();
         }
 
         #endregion
@@ -90,12 +117,12 @@
         private void InitializeBackgroundWorker()
         {
             // set background worker
-            backgroundWorker1.DoWork += new DoWorkEventHandler(BackgroundWorker_DoWork);
+            this.backgroundWorker.DoWork += this.BackgroundWorker_DoWork;
 
-            backgroundWorker1.ProgressChanged += BackgroundWorker_ProgressChanged;
-            backgroundWorker1.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-            backgroundWorker1.WorkerReportsProgress = true;
-            backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker.ProgressChanged += this.BackgroundWorker_ProgressChanged;
+            this.backgroundWorker.RunWorkerCompleted += this.BackgroundWorker_RunWorkerCompleted;
+            this.backgroundWorker.WorkerReportsProgress = true;
+            this.backgroundWorker.WorkerSupportsCancellation = true;
 
             // set cancellation token
             this.ResetCancellationToken();
@@ -103,24 +130,22 @@
 
         private void ResetCancellationToken()
         {
-            _cts = new CancellationTokenSource();
+            this._cts = new CancellationTokenSource();
 
-            _cancellationToken = _cts.Token;
-            _cancellationToken.Register(this.backgroundWorker1.CancelAsync);
+            this._cancellationToken = this._cts.Token;
+            this._cancellationToken.Register(this.backgroundWorker.CancelAsync);
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var worker = sender as BackgroundWorker;
 
-            Engine = new Selloze.ConsoleBotEngine.Engine();
-            Engine.RaiseReceivedEvent += (progress) => backgroundWorker1.ReportProgress(0, progress);
-
-            //// Engine.RaiseReceivedEvent += Engine_RaiseReceivedEvent;
+            this.Engine = new Selloze.ConsoleBotEngine.Engine();
+            this.Engine.RaiseReceivedEvent += (progress) => this.backgroundWorker.ReportProgress(0, progress);
 
             var parameters = (SellozeEngineParameters)e.Argument;
 
-            Engine.SellozeEngineParameters = parameters;
+            this.Engine.SellozeEngineParameters = parameters;
 
             try
             {
@@ -151,7 +176,6 @@
                     break;
             }
         }
-
         private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             btnStart.Enabled = true;
@@ -161,17 +185,7 @@
             this.ResetCancellationToken();
         }
 
-        #endregion
 
-        private void FrmMain_Load(object sender, EventArgs e)
-        {
-            string deviceId = new DeviceIdBuilder()
-                .AddProcessorId()
-                .AddMotherboardSerialNumber()
-                .UseFormatter(new HashDeviceIdFormatter(() => SHA256.Create(), new Base64UrlByteArrayEncoder()))
-                .ToString();
-
-            lblDeviceId.Text = deviceId;
-        }
+        #endregion       
     }
 }
