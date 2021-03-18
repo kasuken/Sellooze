@@ -31,35 +31,41 @@ namespace Sellooze.WinApp
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.btnStart = new System.Windows.Forms.Button();
             this.lstEvents = new System.Windows.Forms.ListBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtRsiPeriod = new System.Windows.Forms.TextBox();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.lblEventsTitle = new System.Windows.Forms.Label();
             this.lblActualRSITitle = new System.Windows.Forms.Label();
             this.lblCloseCountTitle = new System.Windows.Forms.Label();
             this.lblActualRSI = new Sellooze.WinApp.Controls.BlinkingLabel();
             this.lblCloseCount = new Sellooze.WinApp.Controls.BlinkingLabel();
-            this.txtRsiOverbought = new System.Windows.Forms.TextBox();
-            this.txtRsiOversold = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblRsiPeriod = new System.Windows.Forms.Label();
+            this.lblRsiOverbought = new System.Windows.Forms.Label();
+            this.lblRsiOversold = new System.Windows.Forms.Label();
             this.cboEngine = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblBotEngine = new System.Windows.Forms.Label();
+            this.lblTradeQuantity = new System.Windows.Forms.Label();
             this.txtTradeQuantity = new System.Windows.Forms.TextBox();
+            this.txtRsiPeriod = new System.Windows.Forms.NumericUpDown();
+            this.txtRsiOverbought = new System.Windows.Forms.NumericUpDown();
+            this.txtRsiOversold = new System.Windows.Forms.NumericUpDown();
             this.btnStop = new System.Windows.Forms.Button();
-            this.lblDeviceId = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.lblDeviceInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.droTools = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRsiPeriod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRsiOverbought)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRsiOversold)).BeginInit();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.Location = new System.Drawing.Point(840, 694);
+            this.btnStart.Location = new System.Drawing.Point(840, 668);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 0;
@@ -74,74 +80,53 @@ namespace Sellooze.WinApp
             this.lstEvents.ItemHeight = 15;
             this.lstEvents.Location = new System.Drawing.Point(3, 18);
             this.lstEvents.Name = "lstEvents";
-            this.tableLayoutPanel1.SetRowSpan(this.lstEvents, 8);
-            this.lstEvents.Size = new System.Drawing.Size(486, 655);
+            this.tableLayoutPanel.SetRowSpan(this.lstEvents, 8);
+            this.lstEvents.Size = new System.Drawing.Size(486, 629);
             this.lstEvents.TabIndex = 1;
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanel
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.txtRsiPeriod, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lstEvents, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblEventsTitle, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblActualRSITitle, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblCloseCountTitle, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblActualRSI, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblCloseCount, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txtRsiOverbought, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.txtRsiOversold, 2, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.cboEngine, 2, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.txtTradeQuantity, 2, 7);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 13;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(984, 676);
-            this.tableLayoutPanel1.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(3, 676);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 32);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "RSI";
-            // 
-            // txtRsiPeriod
-            // 
-            this.txtRsiPeriod.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtRsiPeriod.Location = new System.Drawing.Point(691, 82);
-            this.txtRsiPeriod.Name = "txtRsiPeriod";
-            this.txtRsiPeriod.Size = new System.Drawing.Size(100, 39);
-            this.txtRsiPeriod.TabIndex = 7;
-            this.txtRsiPeriod.Text = "14";
-            this.txtRsiPeriod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tableLayoutPanel.ColumnCount = 3;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel.Controls.Add(this.lstEvents, 0, 1);
+            this.tableLayoutPanel.Controls.Add(this.lblEventsTitle, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.lblActualRSITitle, 1, 1);
+            this.tableLayoutPanel.Controls.Add(this.lblCloseCountTitle, 1, 2);
+            this.tableLayoutPanel.Controls.Add(this.lblActualRSI, 2, 1);
+            this.tableLayoutPanel.Controls.Add(this.lblCloseCount, 2, 2);
+            this.tableLayoutPanel.Controls.Add(this.lblRsiPeriod, 1, 4);
+            this.tableLayoutPanel.Controls.Add(this.lblRsiOverbought, 1, 5);
+            this.tableLayoutPanel.Controls.Add(this.lblRsiOversold, 1, 6);
+            this.tableLayoutPanel.Controls.Add(this.cboEngine, 2, 7);
+            this.tableLayoutPanel.Controls.Add(this.lblBotEngine, 1, 7);
+            this.tableLayoutPanel.Controls.Add(this.lblTradeQuantity, 1, 8);
+            this.tableLayoutPanel.Controls.Add(this.txtTradeQuantity, 2, 8);
+            this.tableLayoutPanel.Controls.Add(this.txtRsiPeriod, 2, 4);
+            this.tableLayoutPanel.Controls.Add(this.txtRsiOverbought, 2, 5);
+            this.tableLayoutPanel.Controls.Add(this.txtRsiOversold, 2, 6);
+            this.tableLayoutPanel.Location = new System.Drawing.Point(12, 12);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 9;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(984, 650);
+            this.tableLayoutPanel.TabIndex = 5;
             // 
             // lblEventsTitle
             // 
@@ -168,9 +153,9 @@ namespace Sellooze.WinApp
             this.lblCloseCountTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblCloseCountTitle.Location = new System.Drawing.Point(495, 47);
             this.lblCloseCountTitle.Name = "lblCloseCountTitle";
-            this.lblCloseCountTitle.Size = new System.Drawing.Size(137, 32);
+            this.lblCloseCountTitle.Size = new System.Drawing.Size(144, 32);
             this.lblCloseCountTitle.TabIndex = 7;
-            this.lblCloseCountTitle.Text = "CloseCount";
+            this.lblCloseCountTitle.Text = "Close Count";
             // 
             // lblActualRSI
             // 
@@ -198,104 +183,136 @@ namespace Sellooze.WinApp
             this.lblCloseCount.TabIndex = 9;
             this.lblCloseCount.Text = "0";
             // 
-            // txtRsiOverbought
+            // lblRsiPeriod
             // 
-            this.txtRsiOverbought.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtRsiOverbought.Location = new System.Drawing.Point(691, 127);
-            this.txtRsiOverbought.Name = "txtRsiOverbought";
-            this.txtRsiOverbought.Size = new System.Drawing.Size(100, 39);
-            this.txtRsiOverbought.TabIndex = 10;
-            this.txtRsiOverbought.Text = "70";
-            this.txtRsiOverbought.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.lblRsiPeriod.AutoSize = true;
+            this.lblRsiPeriod.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblRsiPeriod.Location = new System.Drawing.Point(495, 279);
+            this.lblRsiPeriod.Name = "lblRsiPeriod";
+            this.lblRsiPeriod.Size = new System.Drawing.Size(121, 32);
+            this.lblRsiPeriod.TabIndex = 14;
+            this.lblRsiPeriod.Text = "RSI Period";
             // 
-            // txtRsiOversold
+            // lblRsiOverbought
             // 
-            this.txtRsiOversold.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtRsiOversold.Location = new System.Drawing.Point(691, 172);
-            this.txtRsiOversold.Name = "txtRsiOversold";
-            this.txtRsiOversold.Size = new System.Drawing.Size(98, 39);
-            this.txtRsiOversold.TabIndex = 11;
-            this.txtRsiOversold.Text = "30";
-            this.txtRsiOversold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.lblRsiOverbought.AutoSize = true;
+            this.lblRsiOverbought.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblRsiOverbought.Location = new System.Drawing.Point(495, 324);
+            this.lblRsiOverbought.Name = "lblRsiOverbought";
+            this.lblRsiOverbought.Size = new System.Drawing.Size(183, 32);
+            this.lblRsiOverbought.TabIndex = 15;
+            this.lblRsiOverbought.Text = "RSI Overbought";
             // 
-            // label2
+            // lblRsiOversold
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(495, 79);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 32);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "RSI Period";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(495, 124);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(183, 32);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "RSI Overbought";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(495, 169);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(149, 32);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "RSI Oversold";
+            this.lblRsiOversold.AutoSize = true;
+            this.lblRsiOversold.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblRsiOversold.Location = new System.Drawing.Point(495, 369);
+            this.lblRsiOversold.Name = "lblRsiOversold";
+            this.lblRsiOversold.Size = new System.Drawing.Size(149, 32);
+            this.lblRsiOversold.TabIndex = 16;
+            this.lblRsiOversold.Text = "RSI Oversold";
             // 
             // cboEngine
             // 
+            this.cboEngine.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboEngine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboEngine.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cboEngine.FormattingEnabled = true;
             this.cboEngine.Items.AddRange(new object[] {
             "RSI",
             "Other"});
-            this.cboEngine.Location = new System.Drawing.Point(691, 217);
+            this.cboEngine.Location = new System.Drawing.Point(691, 417);
             this.cboEngine.Name = "cboEngine";
-            this.cboEngine.Size = new System.Drawing.Size(121, 40);
+            this.cboEngine.Size = new System.Drawing.Size(290, 40);
             this.cboEngine.TabIndex = 17;
             // 
-            // label5
+            // lblBotEngine
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(495, 214);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(130, 32);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Bot Engine";
+            this.lblBotEngine.AutoSize = true;
+            this.lblBotEngine.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblBotEngine.Location = new System.Drawing.Point(495, 414);
+            this.lblBotEngine.Name = "lblBotEngine";
+            this.lblBotEngine.Size = new System.Drawing.Size(130, 32);
+            this.lblBotEngine.TabIndex = 18;
+            this.lblBotEngine.Text = "Bot Engine";
             // 
-            // label6
+            // lblTradeQuantity
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(495, 260);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(171, 32);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "Trade Quantity";
+            this.lblTradeQuantity.AutoSize = true;
+            this.lblTradeQuantity.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTradeQuantity.Location = new System.Drawing.Point(495, 460);
+            this.lblTradeQuantity.Name = "lblTradeQuantity";
+            this.lblTradeQuantity.Size = new System.Drawing.Size(171, 32);
+            this.lblTradeQuantity.TabIndex = 19;
+            this.lblTradeQuantity.Text = "Trade Quantity";
             // 
             // txtTradeQuantity
             // 
+            this.txtTradeQuantity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtTradeQuantity.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtTradeQuantity.Location = new System.Drawing.Point(691, 263);
+            this.txtTradeQuantity.Location = new System.Drawing.Point(691, 463);
             this.txtTradeQuantity.Name = "txtTradeQuantity";
-            this.txtTradeQuantity.Size = new System.Drawing.Size(100, 39);
+            this.txtTradeQuantity.Size = new System.Drawing.Size(290, 39);
             this.txtTradeQuantity.TabIndex = 20;
             this.txtTradeQuantity.Text = "0.0005";
             this.txtTradeQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtRsiPeriod
+            // 
+            this.txtRsiPeriod.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRsiPeriod.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtRsiPeriod.Location = new System.Drawing.Point(691, 282);
+            this.txtRsiPeriod.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.txtRsiPeriod.Name = "txtRsiPeriod";
+            this.txtRsiPeriod.Size = new System.Drawing.Size(290, 39);
+            this.txtRsiPeriod.TabIndex = 21;
+            this.txtRsiPeriod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtRsiPeriod.Value = new decimal(new int[] {
+            14,
+            0,
+            0,
+            0});
+            // 
+            // txtRsiOverbought
+            // 
+            this.txtRsiOverbought.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRsiOverbought.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtRsiOverbought.Location = new System.Drawing.Point(691, 327);
+            this.txtRsiOverbought.Name = "txtRsiOverbought";
+            this.txtRsiOverbought.Size = new System.Drawing.Size(290, 39);
+            this.txtRsiOverbought.TabIndex = 22;
+            this.txtRsiOverbought.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtRsiOverbought.Value = new decimal(new int[] {
+            70,
+            0,
+            0,
+            0});
+            // 
+            // txtRsiOversold
+            // 
+            this.txtRsiOversold.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRsiOversold.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtRsiOversold.Location = new System.Drawing.Point(691, 372);
+            this.txtRsiOversold.Name = "txtRsiOversold";
+            this.txtRsiOversold.Size = new System.Drawing.Size(290, 39);
+            this.txtRsiOversold.TabIndex = 23;
+            this.txtRsiOversold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtRsiOversold.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             // 
             // btnStop
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(921, 694);
+            this.btnStop.Location = new System.Drawing.Point(921, 668);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 6;
@@ -303,31 +320,55 @@ namespace Sellooze.WinApp
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
-            // lblDeviceId
+            // statusStrip
             // 
-            this.lblDeviceId.AutoSize = true;
-            this.lblDeviceId.Location = new System.Drawing.Point(12, 705);
-            this.lblDeviceId.Name = "lblDeviceId";
-            this.lblDeviceId.Size = new System.Drawing.Size(16, 15);
-            this.lblDeviceId.TabIndex = 7;
-            this.lblDeviceId.Text = "...";
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblDeviceInfo,
+            this.droTools});
+            this.statusStrip.Location = new System.Drawing.Point(0, 707);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1008, 22);
+            this.statusStrip.SizingGrip = false;
+            this.statusStrip.TabIndex = 7;
+            this.statusStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.StatusStrip_ItemClicked);
+            // 
+            // lblDeviceInfo
+            // 
+            this.lblDeviceInfo.Name = "lblDeviceInfo";
+            this.lblDeviceInfo.Size = new System.Drawing.Size(16, 17);
+            this.lblDeviceInfo.Text = "...";
+            // 
+            // droTools
+            // 
+            this.droTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.droTools.Image = ((System.Drawing.Image)(resources.GetObject("droTools.Image")));
+            this.droTools.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.droTools.Name = "droTools";
+            this.droTools.ShowDropDownArrow = false;
+            this.droTools.Size = new System.Drawing.Size(20, 20);
+            this.droTools.ToolTipText = "Copy";
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
-            this.Controls.Add(this.lblDeviceId);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.btnStop);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.btnStart);
             this.MaximizeBox = false;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Selloze";
             this.Load += new System.EventHandler(this.FrmMain_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRsiPeriod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRsiOverbought)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRsiOversold)).EndInit();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -337,26 +378,27 @@ namespace Sellooze.WinApp
 
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.ListBox lstEvents;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.Label lblEventsTitle;
         private System.Windows.Forms.Label lblActualRSITitle;
         private System.Windows.Forms.Label lblCloseCountTitle;
         private Controls.BlinkingLabel lblActualRSI;
         private Controls.BlinkingLabel lblCloseCount;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.TextBox txtRsiPeriod;
-        private System.Windows.Forms.TextBox txtRsiOverbought;
-        private System.Windows.Forms.TextBox txtRsiOversold;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblRsiPeriod;
+        private System.Windows.Forms.Label lblRsiOverbought;
+        private System.Windows.Forms.Label lblRsiOversold;
         private System.Windows.Forms.ComboBox cboEngine;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblBotEngine;
+        private System.Windows.Forms.Label lblTradeQuantity;
         private System.Windows.Forms.TextBox txtTradeQuantity;
-        private System.Windows.Forms.Label lblDeviceId;
+        private System.Windows.Forms.NumericUpDown txtRsiPeriod;
+        private System.Windows.Forms.NumericUpDown txtRsiOverbought;
+        private System.Windows.Forms.NumericUpDown txtRsiOversold;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel lblDeviceInfo;
+        private System.Windows.Forms.ToolStripDropDownButton droTools;
     }
 }
 
