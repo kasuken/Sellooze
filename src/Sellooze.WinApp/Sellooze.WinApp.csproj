@@ -8,11 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="DeviceId" Version="5.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1-beta2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Selloze.ConsoleBotEngine\Selloze.ConsoleBotEngine.csproj" />
-    <ProjectReference Include="..\Selloze.Models\Selloze.Models.csproj" />
+    <ProjectReference Include="..\Sellooze.BotEngine\Sellooze.BotEngine.csproj" />
+    <ProjectReference Include="..\Sellooze.Models\Sellooze.Models.csproj" />
   </ItemGroup>
 
 </Project>

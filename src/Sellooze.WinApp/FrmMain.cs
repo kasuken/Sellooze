@@ -3,7 +3,7 @@
     using DeviceId;
     using DeviceId.Encoders;
     using DeviceId.Formatters;
-    using Selloze.Models;
+    using Sellooze.Models;
     using System;
     using System.ComponentModel;
     using System.Security.Cryptography;
@@ -34,7 +34,7 @@
 
         #region properties
 
-        public Selloze.ConsoleBotEngine.Engine Engine { get; set; }
+        public Sellooze.BotEngine.Engine Engine { get; set; }
 
         #endregion
 
@@ -42,7 +42,7 @@
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
-            var sellozeEngineParameters = new SellozeEngineParameters();
+            var sellozeEngineParameters = new SelloozeEngineParameters();
             sellozeEngineParameters.Symbols.Add("ethereum");
 
             sellozeEngineParameters.RSI_PERIOD = Convert.ToInt32(txtRsiPeriod.Text);
@@ -53,16 +53,16 @@
             switch (cboEngine.SelectedItem.ToString())
             {
                 case "RSI":
-                    sellozeEngineParameters.Engine = BotEngine.RSI;
+                    sellozeEngineParameters.Engine = BotEngineEnum.RSI;
                     break;
                 default:
-                    sellozeEngineParameters.Engine = BotEngine.OTHER;
+                    sellozeEngineParameters.Engine = BotEngineEnum.OTHER;
                     break;
             }
             
             LogToListbox("Sellooze started...");
 
-            backgroundWorker1.RunWorkerAsync(sellozeEngineParameters);
+            backgroundWorker.RunWorkerAsync(sellozeEngineParameters);
 
             btnStart.Enabled = false;
             txtRsiPeriod.Enabled = false;
@@ -90,12 +90,12 @@
         private void InitializeBackgroundWorker()
         {
             // set background worker
-            backgroundWorker1.DoWork += new DoWorkEventHandler(BackgroundWorker_DoWork);
+            backgroundWorker.DoWork += new DoWorkEventHandler(BackgroundWorker_DoWork);
 
-            backgroundWorker1.ProgressChanged += BackgroundWorker_ProgressChanged;
-            backgroundWorker1.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-            backgroundWorker1.WorkerReportsProgress = true;
-            backgroundWorker1.WorkerSupportsCancellation = true;
+            backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.WorkerSupportsCancellation = true;
 
             // set cancellation token
             this.ResetCancellationToken();
@@ -106,19 +106,17 @@
             _cts = new CancellationTokenSource();
 
             _cancellationToken = _cts.Token;
-            _cancellationToken.Register(this.backgroundWorker1.CancelAsync);
+            _cancellationToken.Register(this.backgroundWorker.CancelAsync);
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var worker = sender as BackgroundWorker;
 
-            Engine = new Selloze.ConsoleBotEngine.Engine();
-            Engine.RaiseReceivedEvent += (progress) => backgroundWorker1.ReportProgress(0, progress);
+            Engine = new Sellooze.BotEngine.Engine();
+            Engine.RaiseReceivedEvent += (progress) => backgroundWorker.ReportProgress(0, progress);
 
-            //// Engine.RaiseReceivedEvent += Engine_RaiseReceivedEvent;
-
-            var parameters = (SellozeEngineParameters)e.Argument;
+            var parameters = (SelloozeEngineParameters)e.Argument;
 
             Engine.SellozeEngineParameters = parameters;
 
@@ -134,7 +132,7 @@
 
         private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            var progress = (SellozeProgressDto)e.UserState;
+            var progress = (SelloozeProgressDto)e.UserState;
 
             switch (progress.Operation)
             {
@@ -149,6 +147,13 @@
                 case "closecount":
                     lblCloseCount.Text = progress.CloseCount.ToString();
                     break;
+                case "boughtLog":
+                    lblBought.Text = progress.Bought.ToString();
+                    break;
+                case "soldLog":
+                    lblSold.Text = progress.Sold.ToString();
+                    break;
+
             }
         }
 
