@@ -34,7 +34,7 @@ namespace Sellooze.BotEngine
 
             BinanceClient.SetDefaultOptions(new BinanceClientOptions()
             {
-                ApiCredentials = new ApiCredentials("aUOUhXMI7kcGVk71TsSmAzsNbdVBGNe76JsIeQffsfPOhex58UQIS9EklEX3IVFb", "uZwXTuAExVLkrArcSVLb6WqTnp8YGt9ke5bXcdXib6L1CRa2Y5wAITetjuvq1JpT"),
+                ApiCredentials = new ApiCredentials("", ""),
                 LogVerbosity = LogVerbosity.Debug
             });
 
